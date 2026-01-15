@@ -1,8 +1,26 @@
-root = true
 
-[*]
-indent_style = tab
-end_of_line = lf
-charset = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
+import os
+
+def analyze_project(path):
+    files = []
+    for root, _, filenames in os.walk(path):
+        for f in filenames:
+            files.append(f)
+
+    techs = set()
+    if any(f.endswith(".py") for f in files):
+        techs.add("Python")
+    if "package.json" in files:
+        techs.add("Node.js")
+    if "Dockerfile" in files:
+        techs.add("Docker")
+
+    analysis = {
+        "total_files": len(files),
+        "technologies": list(techs),
+        "business_idea": "Pode virar um produto se resolver um problema real e recorrente.",
+        "weak_points": "Falta documentação ou testes automatizados.",
+        "suggestions": "Adicionar README claro, testes e monetização."
+    }
+
+    return analysis
